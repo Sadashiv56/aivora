@@ -9,6 +9,9 @@ build/
 .env
 .env.local
 .env.*.local
+renderapikey.txt*
+*.key
+*_api_key*
 
 # logs
 *.log

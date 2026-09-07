@@ -1,4 +1,5 @@
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
@@ -20,6 +21,10 @@ const config = {
   },
   uploadDir: process.env.UPLOAD_DIR || "./uploads",
   maxFileSize: process.env.MAX_FILE_SIZE || "15mb",
+  // Absolute path to the built frontend (client/dist). On Render the build
+  // runs from server/ so we resolve from the repo root by default.
+  clientDistDir:
+    process.env.CLIENT_DIST_DIR || path.resolve("..", "client", "dist"),
   cloudinary: {
     cloudName: process.env.CLOUDINARY_CLOUD_NAME,
     apiKey: process.env.CLOUDINARY_API_KEY,

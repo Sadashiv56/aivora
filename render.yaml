@@ -1,0 +1,38 @@
+# Render Blueprint — Aivora backend (Node + Express + Socket.IO + MongoDB)
+# Import this repo on Render and it will auto-create the backend service.
+# The only value you must set yourself is MONGODB_URI (your Atlas connection string).
+
+services:
+  - type: web
+    name: aivora-backend
+    runtime: node
+    rootDir: server
+    buildCommand: npm install --omit=dev
+    startCommand: node src/server.js
+    healthCheckPath: /api/health
+    plan: free
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false # set this manually (Atlas connection string)
+      - key: CLIENT_URL
+        sync: false # set to your Vercel URL, e.g. https://aivora-self.vercel.app
+      - key: JWT_ACCESS_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: ACCESS_TOKEN_EXPIRES_IN
+        value: 15m
+      - key: REFRESH_TOKEN_EXPIRES_IN
+        value: 30d
+      - key: REFRESH_TOKEN_COOKIE_NAME
+        value: chat_refresh_token
+      - key: UPLOAD_DIR
+        value: /data/uploads
+      - key: MAX_FILE_SIZE
+        value: 15mb
+    disk:
+      name: uploads
+      mountPath: /data
+      sizeGB: 1

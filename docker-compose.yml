@@ -1,0 +1,33 @@
+services:
+  api:
+    build:
+      context: ./server
+    ports:
+      - "5000:5000"
+    env_file: ./server/.env
+    environment:
+      MONGODB_URI: mongodb://mongo:27017/whatsapp_clone
+      CLIENT_URL: http://localhost:5173
+    depends_on:
+      - mongo
+    volumes:
+      - uploads_data:/app/uploads
+
+  client:
+    build:
+      context: ./client
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api
+
+  mongo:
+    image: mongo:7
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data:
+  uploads_data:

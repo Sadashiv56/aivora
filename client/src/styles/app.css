@@ -68,6 +68,7 @@
 
 * { box-sizing: border-box; }
 html, body, #root { height: 100%; margin: 0; }
+html, body { overflow-x: hidden; overflow-x: clip; }
 html { color-scheme: light; }
 html[data-theme="dark"] { color-scheme: dark; }
 body {
@@ -146,7 +147,7 @@ a { color: var(--link-color); text-decoration: none; }
 .auth-switch { text-align: center; margin-top: 18px; font-size: 14px; color: var(--text-secondary); }
 
 /* ---------- App shell ---------- */
-.app-shell { display: flex; height: 100vh; overflow: hidden; background: var(--bg-app); }
+.app-shell { display: flex; height: 100vh; height: 100dvh; overflow: hidden; background: var(--bg-app); }
 
 /* ---------- Sidebar ---------- */
 .sidebar {
@@ -465,6 +466,11 @@ a { color: var(--link-color); text-decoration: none; }
   .mobile-back { display: inline-flex; }
   .bubble-wrap, .msg-row.mine .bubble-wrap { max-width: 82%; }
   .messages-scroll { padding: 10px 10px 12px; }
+  .msg-image-link { max-width: 100%; }
+  .msg-image {
+    width: auto; max-width: 100%; height: auto; max-height: 220px; object-fit: contain;
+  }
+  .msg-video, .msg-audio { max-width: 100%; }
 }
 @media (max-width: 520px) {
   .messages-scroll { padding: 8px 8px 12px; }

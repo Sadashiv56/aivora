@@ -1,15 +1,20 @@
 import { ChatSidebar } from "../components/chat/ChatSidebar";
 import { ConversationWindow } from "../components/conversation/ConversationWindow";
 import { useChat } from "../context/ChatContext";
+import { useVisualViewportHeight } from "../hooks";
 import { MessageSquare } from "lucide-react";
 
 export const ChatLayout = () => {
   const { activeId, conversations, loadingChats, connected, reconnecting } = useChat();
+  const appHeight = useVisualViewportHeight();
 
   const active = conversations.find((c) => c.id === activeId);
 
   return (
-    <div className={`app-shell${active ? " has-active" : ""}`}>
+    <div
+      className={`app-shell${active ? " has-active" : ""}`}
+      style={{ "--app-height": `${appHeight}px` }}
+    >
       <ChatSidebar />
       {active ? (
         <ConversationWindow key={active.id} conversationId={active.id} />

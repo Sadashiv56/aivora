@@ -92,6 +92,23 @@ export const MessageList = ({ conversationId, onAction }) => {
     if (isNearBottom()) scrollEndIntoView();
   }, [typing]);
 
+  // When the mobile keyboard opens/closes (or the window resizes), the visible
+  // area changes. If we are already at the bottom, re-anchor to the latest
+  // message so it stays visible above the keyboard.
+  useEffect(() => {
+    const onViewportChange = () => {
+      if (isNearBottom()) scrollEndIntoView();
+    };
+    window.addEventListener("resize", onViewportChange);
+    window.visualViewport?.addEventListener("resize", onViewportChange);
+    window.visualViewport?.addEventListener("scroll", onViewportChange);
+    return () => {
+      window.removeEventListener("resize", onViewportChange);
+      window.visualViewport?.removeEventListener("resize", onViewportChange);
+      window.visualViewport?.removeEventListener("scroll", onViewportChange);
+    };
+  }, []);
+
   const onScroll = () => {
     const el = listRef.current;
     if (!el) return;

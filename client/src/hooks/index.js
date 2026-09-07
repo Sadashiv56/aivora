@@ -40,3 +40,35 @@ export const usePrevious = (value) => {
   });
   return ref.current;
 };
+
+export const useVisualViewportHeight = () => {
+  const [height, setHeight] = useState(
+    typeof window !== "undefined"
+      ? Math.round(window.visualViewport?.height || window.innerHeight)
+      : 0
+  );
+
+  useEffect(() => {
+    const update = () => {
+      const vv = window.visualViewport;
+      const next = Math.round(vv ? vv.height : window.innerHeight);
+      setHeight((prev) => (prev === next ? prev : next));
+    };
+    const vv = window.visualViewport;
+    window.addEventListener("resize", update);
+    if (vv) {
+      vv.addEventListener("resize", update);
+      vv.addEventListener("scroll", update);
+    }
+    update();
+    return () => {
+      window.removeEventListener("resize", update);
+      if (vv) {
+        vv.removeEventListener("resize", update);
+        vv.removeEventListener("scroll", update);
+      }
+    };
+  }, []);
+
+  return height;
+};

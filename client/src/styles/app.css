@@ -147,7 +147,14 @@ a { color: var(--link-color); text-decoration: none; }
 .auth-switch { text-align: center; margin-top: 18px; font-size: 14px; color: var(--text-secondary); }
 
 /* ---------- App shell ---------- */
-.app-shell { display: flex; height: 100vh; height: 100dvh; overflow: hidden; background: var(--bg-app); }
+.app-shell {
+  display: flex;
+  height: 100vh;
+  height: 100dvh;
+  height: var(--app-height, 100dvh);
+  overflow: hidden;
+  background: var(--bg-app);
+}
 
 /* ---------- Sidebar ---------- */
 .sidebar {

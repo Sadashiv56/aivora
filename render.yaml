@@ -29,10 +29,10 @@ services:
       - key: REFRESH_TOKEN_COOKIE_NAME
         value: chat_refresh_token
       - key: UPLOAD_DIR
-        value: /data/uploads
+        value: ./uploads
       - key: MAX_FILE_SIZE
         value: 15mb
-    disk:
-      name: uploads
-      mountPath: /data
-      sizeGB: 1
+      # Free-tier Render has no persistent disk, so uploads are ephemeral.
+      # To keep images/avatars across restarts, add your Cloudinary credentials
+      # and they will be uploaded to Cloudinary instead of the local disk:
+      #   CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_KEY, CLOUDINARY_API_SECRET
